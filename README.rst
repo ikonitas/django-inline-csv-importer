@@ -7,14 +7,15 @@ Inline csv importer is a simple Django app to import csv data in admin inlines.
 Quick start
 -----------
 
-1. Add "polls" to your INSTALLED_APPS setting like this::
+1. Add ``inline_csv_importer`` to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
         'inline_csv_importer',
     ]
 
-2. Include the mixin in your ``ModelAdmin`` class and define ``csv_inline``.
+2. Include the mixin in your ``ModelAdmin`` class and define ``csv_inline``::
+
 
     class AwardAdmin(UploadCSVAdminMixin, admin.ModelAdmin):
         csv_inline = (
