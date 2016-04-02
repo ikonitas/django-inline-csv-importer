@@ -1,2 +1,0 @@
-Django>=1.6,<=1.9
-unicodecsv>=0.14.1
