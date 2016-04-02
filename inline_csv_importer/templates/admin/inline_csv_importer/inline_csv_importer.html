@@ -1,0 +1,77 @@
+{% extends "admin/change_form.html" %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     <a href="../../../">Home</a> &rsaquo;
+     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo;
+     <a href="../">{{ opts.verbose_name_plural|capfirst }}</a> &rsaquo;
+     Import
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <ul class="object-tools"></ul>
+    {% block form %}
+      <form action="." method="post" enctype="multipart/form-data">
+          {{ formset.management_form }}
+          {% csrf_token %}
+          <div>
+            {% if formset %}
+              <div class="tabular inline-related last-related">
+                <fieldset clss="module">
+                  <h2>Imported data</h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        {% for header in headers %}
+                          <th>{{ header }}</th>
+                        {% endfor %}
+                      </thead>
+                      <tbody>
+                        {% for form in formset %}
+                          <tr>
+                            {% for value in form.initial.values %}
+                              <td>{{ value }}</td>
+                            {% endfor %}
+                          </tr>
+                          <tr>
+                            <td class="hidden">
+                              {{ form.as_p }}
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+                </fieldset>
+              <div>
+            {% else %}
+              <fieldset class="module aligned">
+                {% for field in form %}
+                  <div class="form-row field-name">
+                    <div>
+                      <label class="required" for="id_{{ field.name }}">{{ field.label }}:</label>
+                      {{ field }}
+                      <p class="help">{{ field.help_text|safe }}</p>
+                      </div>
+                  </div>
+                {% endfor %}
+              </fieldset>
+            {% endif %}
+          </div>
+          <div class="submit-row">
+            <input class="default" type="submit"
+            value="{% if initial_data %}Confirm data{% else %}Run import{% endif %}"
+            id="import_submit" />
+            {% if formset %}
+              <p class="deletelink-box">
+                <a href="./" class="deletelink">Cancel</a>
+              </p>
+            {% endif %}
+          </div>
+      </form>
+    {% endblock %}
+    {% block results %}
+    {% endblock %}
+</div>
+{% endblock %}

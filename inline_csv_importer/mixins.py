@@ -16,15 +16,15 @@ from .forms import ImportCSVForm
 
 
 class UploadCSVAdminMixin(object):
-    templates = 'admin/change_form.html'
+    change_form_template = 'admin/inline_csv_importer/change_form.html'
 
     def get_urls(self):
         urls = super(UploadCSVAdminMixin, self).get_urls()
         my_urls = [
             url(
-                r'^(\d+)/upload-csv/$',
-                self.import_from_csv,
-                name='upload-csv'
+                r'^(\d+)/import-inline-csv/$',
+                self.import_inline_csv,
+                name='import-inline-csv'
             ),
         ]
         return my_urls + urls
@@ -81,7 +81,7 @@ class UploadCSVAdminMixin(object):
         )
         return formset
 
-    def import_from_csv(self, request, obj_id):
+    def import_inline_csv(self, request, obj_id):
 
         form = None
         formset = None
@@ -122,9 +122,9 @@ class UploadCSVAdminMixin(object):
 
                     initial_data.append(zipped_data)
 
-                    # Build formset.
-                    formset = self.build_formset(model_form, extra=len(initial_data))
-                    formset = formset(initial=initial_data)
+                # Build formset.
+                formset = self.build_formset(model_form, extra=len(initial_data))
+                formset = formset(initial=initial_data)
 
             else:
                 formset = self.build_formset(model_form)
@@ -141,7 +141,7 @@ class UploadCSVAdminMixin(object):
                 form['csv_file'].help_text = self.pretty_csv_inline['help_text']
 
         return render_to_response(
-            'admin/upload_csv/upload_csv.html'.format(opts['app_label'], opts['object_name']),
+            'admin/inline_csv_importer/inline_csv_importer.html',
             {
                 'title': 'Import data',
                 'root_path': 'admin',

@@ -1,0 +1,56 @@
+Metadata-Version: 1.1
+Name: django-inline-csv-importer
+Version: 0.1
+Summary: A simple django app to import admin inline data from CSV
+Home-page: https://github.com/zatan/django-inline-csv-importer
+Author: Edvinas Jurevicius
+Author-email: ikonitas@gmail.comth
+License: BSD License
+Description: ===================
+        Inline csv importer
+        ===================
+        
+        Inline csv importer is a simple Django app to import csv data in admin inlines.
+        
+        Quick start
+        -----------
+        
+        1. Add ``inline_csv_importer`` to your INSTALLED_APPS setting like this::
+        
+            INSTALLED_APPS = [
+                ...
+                'inline_csv_importer',
+            ]
+        
+        2. Include the mixin in your ``ModelAdmin`` class and define ``csv_inline``::
+        
+        
+            class AwardAdmin(UploadCSVAdminMixin, admin.ModelAdmin):
+                csv_inline = (
+                    (
+                        'Person import', {
+                            'fields': ('date', 'name', 'extra',),
+                            'inline': AwardPersonInline,
+                            'help_text': (
+                                'CSV File should be in this format without headings: '
+                                '<br> name, date, extra information.'
+                            )
+                        }
+                    ),
+                )
+        
+        
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 1.9
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content

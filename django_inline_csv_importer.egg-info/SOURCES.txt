@@ -1,0 +1,11 @@
+LICENSE
+MANIFEST.in
+README.rst
+django_inline_csv_importer.egg-info/PKG-INFO
+django_inline_csv_importer.egg-info/SOURCES.txt
+django_inline_csv_importer.egg-info/dependency_links.txt
+django_inline_csv_importer.egg-info/requires.txt
+django_inline_csv_importer.egg-info/top_level.txt
+inline_csv_importer/__init__.py
+inline_csv_importer/forms.py
+inline_csv_importer/mixins.py
