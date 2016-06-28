@@ -110,12 +110,17 @@ class UploadCSVAdminMixin(object):
             model_form = self.get_inline_model_form()
 
             if request.FILES.get('csv_file'):
+
                 csv_file = request.FILES['csv_file']
+                csv_file = csv.reader(csv_file)
+
+                # Skip headers
+                next(csv_file, None)
 
                 # Make headers pretty.
                 headers = map(pretty_name, self.pretty_csv_inline['fields'])
 
-                for row in csv.reader(csv_file):
+                for row in csv_file:
 
                     # Zip values from csv row to defined fields in csv_inline
                     zipped_data = dict(zip(self.pretty_csv_inline['fields'], row))
